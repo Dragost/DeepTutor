@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 
 import ProviderIcon from "@/components/common/ProviderIcon";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
+import type { AppLanguage } from "@/i18n/languages";
 import { apiFetch, apiUrl } from "@/lib/api";
 import {
   reasoningEffortOptions,
