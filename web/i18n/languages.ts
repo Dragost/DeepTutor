@@ -3,36 +3,42 @@ export const APP_LANGUAGES = [
   {
     code: "en",
     labelKey: "language.english",
+    nativeLabel: "English",
     locale: "en-US",
     aliases: ["en", "en-us", "english"],
   },
   {
     code: "zh",
     labelKey: "language.chinese",
+    nativeLabel: "简体中文",
     locale: "zh-CN",
     aliases: ["zh", "zh-cn", "cn", "chinese"],
   },
   {
     code: "es",
     labelKey: "language.spanishSpain",
+    nativeLabel: "Español (España)",
     locale: "es-ES",
     aliases: ["es", "es-es", "spanish", "español"],
   },
   {
     code: "fr",
     labelKey: "language.french",
+    nativeLabel: "Français",
     locale: "fr-FR",
     aliases: ["fr", "fr-fr", "french", "français"],
   },
   {
     code: "de",
     labelKey: "language.german",
+    nativeLabel: "Deutsch",
     locale: "de-DE",
     aliases: ["de", "de-de", "german", "deutsch"],
   },
   {
     code: "uk",
     labelKey: "language.ukrainian",
+    nativeLabel: "Українська",
     locale: "uk-UA",
     aliases: ["uk", "uk-ua", "ua", "ukrainian"],
   },
@@ -43,6 +49,7 @@ export type AppLanguage = (typeof APP_LANGUAGES)[number]["code"];
 export interface AppLanguageDefinition {
   code: AppLanguage;
   labelKey: string;
+  nativeLabel: string;
   locale: string;
   aliases: readonly string[];
 }
