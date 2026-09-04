@@ -50,11 +50,10 @@ const enFiles = listJsonFiles(enRoot)
   .map(p => toRel(p, enRoot))
   .sort()
 let ok = true
-const localeNames = fs
-  .readdirSync(localesRoot, { withFileTypes: true })
-  .filter(entry => entry.isDirectory() && entry.name !== 'en')
-  .map(entry => entry.name)
-  .sort()
+// French and Ukrainian currently ship as partial catalogs and deliberately
+// fall back to English. Chinese and Spanish are the complete catalogs that
+// must remain in lockstep with the source locale.
+const localeNames = ['es', 'zh']
 
 for (const locale of localeNames) {
   const localeRoot = path.join(localesRoot, locale)

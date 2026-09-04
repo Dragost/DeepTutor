@@ -17,7 +17,6 @@ import type {
   CatalogProfile,
   ServiceName,
 } from "@/features/settings/store/SettingsStore";
-import type { AppLanguage } from "@/i18n/init";
 
 /** Provider disclosure rows contain connection fields and their model cards.
  * Opening an editor and selecting a runtime model are separate actions;
