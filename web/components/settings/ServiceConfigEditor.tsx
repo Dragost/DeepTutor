@@ -67,7 +67,6 @@ import {
   selectOptionClass,
   stringifyExtraHeaders,
 } from "./shared";
-import type { AppLanguage } from "@/i18n/init";
 
 // The protocol an endpoint speaks. Labels and hints are keyed by the backend
 // value so the select never invents a format the registry does not know.

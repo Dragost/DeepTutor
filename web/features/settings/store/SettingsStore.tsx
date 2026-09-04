@@ -42,7 +42,6 @@ import {
   type RegistryEdit,
 } from "@/lib/provider-registry";
 import { browserStorage } from "@/shared/storage";
-import type { AppLanguage } from "@/i18n/init";
 
 import {
   CONNECTABLE_SERVICES,
