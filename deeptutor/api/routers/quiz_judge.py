@@ -280,7 +280,7 @@ async def websocket_quiz_judge(websocket: WebSocket):
             ] | null,
             "user_answer_image": str | null,  # legacy single-image form
             "image_filename": str | null,     # legacy filename for the above
-        "language": "zh" | "en" | "es" | "de" | "uk",
+            "language": "zh" | "en" | "es" | "de" | "uk",
         }
 
     Server → Client (streaming):

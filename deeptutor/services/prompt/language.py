@@ -16,6 +16,7 @@ _LANGUAGE_LABELS: dict[str, str] = {
     "ko": "한국어",
     "es": "español de España",
     "es-es": "español de España",
+    "es_es": "español de España",
     "fr": "Français",
     "de": "Deutsch",
     "ru": "Русский",

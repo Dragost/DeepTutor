@@ -4,11 +4,14 @@ from __future__ import annotations
 
 from typing import Any
 
-from deeptutor.i18n.languages import normalize_supported_language
-
 
 def _parse_language(language: str | None) -> str:
-    return normalize_supported_language(language)
+    raw = (language or "en").strip().lower().replace("_", "-")
+    if raw.startswith("zh") or raw in {"cn", "chinese"}:
+        return "zh"
+    if raw.split("-", 1)[0] == "es" or raw in {"spanish", "español"}:
+        return "es"
+    return "en"
 
 
 _MESSAGES: dict[str, dict[str, str]] = {

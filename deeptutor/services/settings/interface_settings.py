@@ -15,7 +15,6 @@ import tempfile
 import threading
 from typing import Any, Literal
 
-from deeptutor.i18n.languages import normalize_supported_language
 from deeptutor.response_languages import SUPPORTED_RESPONSE_LANGUAGES
 from deeptutor.services.path_service import get_path_service
 from deeptutor.tools.builtin import USER_TOGGLEABLE_TOOL_NAMES
@@ -80,8 +79,42 @@ def _interface_settings_file():
 
 
 def _normalize_language(language: Any, default: str = "en") -> str:
-    """Normalize UI language codes against the shared registry."""
-    return normalize_supported_language(language, default)
+    """
+    Normalize language codes:
+    - en/english -> en
+    - zh/chinese/cn -> zh
+    - es/spanish/español -> es
+    - fr/french -> fr
+    - de/german/deutsch -> de
+    - uk/ukrainian/ua -> uk
+
+    An unknown code falls back to ``default`` rather than raising, so this is
+    also the gate that decides which languages exist at all: a locale shipped
+    in ``web/locales/`` but missing here is silently served as English.
+    """
+    if language is None or language == "":
+        language = default
+
+    if isinstance(language, str):
+        s = language.lower().strip().replace("_", "-")
+        base = s.split("-", 1)[0]
+        if s == "english" or base == "en":
+            return "en"
+        if s == "chinese" or base in {"zh", "cn"}:
+            return "zh"
+        if s in {"spanish", "español"} or base == "es":
+            return "es"
+        if s == "french" or base == "fr":
+            return "fr"
+        if s in {"german", "deutsch"} or base == "de":
+            return "de"
+        if s == "ukrainian" or base in {"uk", "ua"}:
+            return "uk"
+
+    # Fall back to default
+    if isinstance(default, str):
+        return _normalize_language(default, "en")
+    return "en"
 
 
 def _normalize_response_language(language: Any, default: str = "en") -> str:

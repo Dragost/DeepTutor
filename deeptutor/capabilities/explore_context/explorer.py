@@ -184,15 +184,13 @@ class ContextExplorer:
         source_index: dict[str, str],
         usage: Any | None,
     ) -> str:
-        system_prompt = append_language_directive(
-            self._t("loop.system").format(tool_call_limit=MAX_PARALLEL_TOOL_CALLS),
-            self.language,
-        )
+        system_prompt = self._t("loop.system").format(tool_call_limit=MAX_PARALLEL_TOOL_CALLS)
         user_template = self._t("loop.user_template")
         if not system_prompt or not user_template:
             logger.warning("explore_context loop prompts missing; using single pass")
             return ""
 
+        system_prompt = append_language_directive(system_prompt, self.language)
         messages: list[dict[str, Any]] = [
             {"role": "system", "content": system_prompt},
             {
@@ -445,11 +443,12 @@ class ContextExplorer:
         sources_text = self._render_source_blocks(source_index)
         if not sources_text:
             return ""
-        system_prompt = append_language_directive(self._t("system"), self.language)
+        system_prompt = self._t("system")
         user_template = self._t("user_template")
         if not system_prompt or not user_template:
             logger.warning("explore_context single-pass prompts missing; skipping pre-pass")
             return ""
+        system_prompt = append_language_directive(system_prompt, self.language)
         user_prompt = user_template.format(
             question=(context.user_message or "").strip() or "(empty)",
             mode=str(context.active_capability or "chat"),

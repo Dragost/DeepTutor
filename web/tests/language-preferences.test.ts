@@ -13,6 +13,8 @@ test("the locale registry accepts every supported language", () => {
   assert.equal(normalizeLanguage("uk-UA"), "uk");
   assert.equal(normalizeLanguage("fr-FR"), "fr");
   assert.equal(normalizeLanguage("de-AT"), "de");
+  assert.equal(normalizeLanguage("es-ES"), "es");
+  assert.equal(normalizeLanguage("es_ES"), "es");
 });
 
 test("response language remains independent from the interface language", () => {

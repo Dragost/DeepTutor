@@ -112,7 +112,6 @@ async def build_tool_options(
                 "description_i18n": {
                     "en": definition.description or "",
                     "zh": definition.description or "",
-                    "es": definition.description or "",
                 },
             }
         )

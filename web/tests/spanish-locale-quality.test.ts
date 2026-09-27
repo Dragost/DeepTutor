@@ -17,6 +17,26 @@ const catalog = JSON.parse(
   fs.readFileSync(findSpanishCatalog(), "utf8"),
 ) as Record<string, string>;
 
+test("Spanish app catalog covers English keys and preserves interpolation variables", () => {
+  const english = JSON.parse(
+    fs.readFileSync(path.join(path.dirname(findSpanishCatalog()), "../en/app.json"), "utf8"),
+  ) as Record<string, string>;
+  const variables = (text: string) =>
+    [...text.matchAll(/\{\{\s*([^}]+?)\s*\}\}/g)].map((match) => match[1]).sort();
+  for (const [key, source] of Object.entries(english)) {
+    assert.ok(catalog[key]?.trim(), `Missing Spanish translation: ${key}`);
+    assert.deepEqual(variables(catalog[key]), variables(source), `Interpolation mismatch: ${key}`);
+  }
+  for (const key of Object.keys(catalog)) {
+    if (key in english) continue;
+    // Spanish has a CLDR "many" category that English does not have.
+    assert.ok(key.endsWith("_many"), `Unexpected Spanish key: ${key}`);
+    const source = english[key.replace(/_many$/, "_other")];
+    assert.equal(typeof source, "string", `Missing plural source: ${key}`);
+    assert.deepEqual(variables(catalog[key]), variables(source), `Plural interpolation mismatch: ${key}`);
+  }
+});
+
 test("Spanish activity labels describe actions in progress", () => {
   assert.equal(catalog["Reading skill"], "Consultando una habilidad");
   assert.equal(catalog["Reading source"], "Consultando una fuente");

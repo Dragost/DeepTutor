@@ -1,8 +1,15 @@
-import { localeForLanguage, type AppLanguage } from "@/i18n/languages";
+import type { AppLanguage } from "@/i18n/languages";
 
 export type Language = AppLanguage;
 
-export const getLocale = localeForLanguage;
+export function getLocale(lang: Language): string {
+  if (lang === "zh") return "zh-CN";
+  if (lang === "es") return "es-ES";
+  if (lang === "fr") return "fr-FR";
+  if (lang === "de") return "de-DE";
+  if (lang === "uk") return "uk-UA";
+  return "en-US";
+}
 
 export function formatDate(
   date: Date,
